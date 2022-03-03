@@ -1,0 +1,66 @@
+from copy import deepcopy
+class CircularQueue:
+    def __init__(self, max_size):
+        assert max_size > 0, "CircularQueue size must be > 0"
+        self._max_size = max_size
+        self._values = [None] * self._max_size
+        self._front = 0
+        self._rear = 0
+        self._count = 0
+        return
+    def is_empty(self):
+        return self._count == 0
+    def is_full(self):
+        return self._count == self._max_size
+    def __len__(self):
+        return self._count        
+    def insert(self, value):
+        assert self._count < self._max_size, "queue is full"        
+        self._values[self._rear] = deepcopy(value)
+        self._rear = (self._rear + 1) % self._max_size
+        self._count += 1        
+    def remove(self):
+        assert self._count > 0, "Cannot remove from an empty queue"
+        value = deepcopy(self._values[self._front])
+        self._values[self._front] = None
+        self._front = (self._front + 1) % self._max_size
+        self._count -= 1        
+        return value    
+    def peek(self):
+        assert self._count > 0, "Cannot peek at an empty queue"        
+        return deepcopy(self._values[self._front])    
+    def __str__(self):
+        value = [str(x) for x in self._values]
+        return ' '.join(value)           
+            
+CQ = CircularQueue(10)
+print("1. INSERT ELEMENT.")
+print("2. REMOVE ELEMENT.")
+print("3. PEEK.")
+print("4. LENGTH OF CIRCULAR QUEUE.")
+print("5. IS FULL?")
+print("6. IS EMPTY?")
+print("7. DISPLAY.")    
+print("8. EXIT")
+startover = True
+while startover:
+    ans = int(input("ENTER A CHOICE: "))    
+    if ans == 1:
+        value = int(input("ENTER THE VALUE: "))
+        CQ.insert(value)
+    elif ans == 2:
+        CQ.remove()
+    elif ans == 3:
+        print(CQ.peek())
+    elif ans == 4:
+        print(CQ.__len__())
+    elif ans == 5:
+        print(CQ.is_full())
+    elif ans == 6:
+        print(CQ.is_empty())
+    elif ans == 7:
+        print(CQ)
+    elif ans == 8: 
+        break
+    else: 
+        print("CHOOSE A VAILD OPTION!!")   
