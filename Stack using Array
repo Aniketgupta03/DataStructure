@@ -1,0 +1,55 @@
+class Stack_Array:
+    def __init__(self):
+        self.stack = []
+   
+    def push(self, element):
+        self.stack.append(element)
+   
+    def pop(self):
+        if(not self.isEmpty()):
+            lastElement = self.stack[-1] 
+            del(self.stack[-1])
+            return lastElement
+        else:
+            return("STACK IS ALREADY EMPTY!!")
+    
+    def isEmpty(self):
+        return self.stack == []
+    
+    def peek(self):
+        if self.isEmpty():
+            print("STACK IS EMPTY!!")
+        else:
+            print("ELEMENT AT THE TOP OF THE STACK: ",self.stack[-1])
+
+    def printStack(self):
+        print(self.stack)
+
+if __name__ == "__main__":
+    s = Stack_Array()
+    print("*"*5+" STACK USING ARRAY"+5*"*")
+    while(True):
+        
+        print("1. PUSH ELEMENT: ")
+        print("2. POP ELEMENT:  ")
+        print("3. TO CHECK IF STACK IS EMPTY: ")
+        print("4. PRINT")
+        print("5. PEEK")
+        print("6. EXIT")
+        
+        el = int(input("ENTER THE CHOICE: "))
+        
+        if(el == 1):
+            item = input("ENTER THE VALUE TO PUSH INTO STACK: ")
+            s.push(item)
+        if(el == 2):
+            print(s.pop())
+        if(el == 3):
+            print(s.isEmpty())
+        if(el == 4):
+            s.printStack()
+        if(el==5):
+            s.peek()
+        if(el == 6):
+            break
+
