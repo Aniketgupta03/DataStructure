@@ -1,0 +1,132 @@
+class Node:
+      def __init__(self, value = None):
+            self.value = value
+            self.next = None
+class CircularSinglyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+    def createCSLL(self, value):
+        new_node = Node(value)
+        new_node.next = None
+        self.head = new_node
+        self.tail = new_node
+        print("Node created.")    
+    def __iter__(self):
+            node = self.head
+            while node:
+                yield node
+                node = node.next
+                if node == self.tail.next:
+                    break            
+    def insertbeg(self, value):
+        new_node = Node(value)
+        new_node.next = self.head
+        self.head = new_node
+        self.tail.next = self.head
+    def insertm(self,mid_node, value):
+        if mid_node is None:
+            print("Mentioned node doesn't exist")
+            return
+        new_node = Node(value)
+        new_node.next = mid_node.next
+        mid_node.next = new_node 
+    def insertend(self, value):
+        new_node = Node(value)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+            return
+        last_node = self.head
+        while(last_node.next != self.head):
+            last_node = last_node.next
+        last_node.next = new_node
+        self.tail = new_node
+        self.tail.next = self.head    
+    def display(self):
+        node_print = self.head
+        while node_print:
+            print(node_print.value, " ->", end=" ")
+            node_print = node_print.next
+            if node_print == self.tail.next:
+                break
+        print("\n")
+    def deletebeg(self):
+        if(self.head == None):
+            return
+        elif (self.head.next == self.tail.next):
+            self.head = self.tail = None
+            return
+        else:
+            temp_node = self.head
+            self.head = self.head.next
+            temp_node = None
+            self.tail.next = self.head
+            return        
+    def deleteend(self):
+        if(self.head == None):
+            return
+        elif (self.head.next == self.tail.next):
+            self.head = self.tail = None
+            return
+        else:
+            temp_node = self.head
+            while (temp_node.next is not self.tail):
+                temp_node = temp_node.next
+            self.tail = temp_node
+            temp_node.next = None
+            self.tail.next = self.head
+            return        
+    def delMid(self, del_value):
+        temp_head = self.head
+        if (temp_head is not None):
+            if (temp_head.value == del_value):
+                self.head = temp_head.next
+                temp_head = None
+                return
+        while (temp_head is not None):
+            if temp_head.value == del_value:
+                break
+            prev = temp_head
+            temp_head = temp_head.next
+        if (temp_head == None):
+            return
+        prev.next = temp_head.next
+        temp_head = None        
+csll = CircularSinglyLinkedList()
+startover = True
+while startover:
+    print("1. Create a Node.")
+    print("2. Insert element at the beginning.")
+    print("3. Insert element at the end.")
+    print("4. Insert element at the middle .")
+    print("5. Deletion from the beginning.")
+    print("6. Deletion from the end.")
+    print("7. Deletion from the middle.")
+    print("8. Display the linked list")
+    print("9. EXIT")
+    ans = int(input("ENTER A CHOICE: "))    
+    if ans == 1:
+        ele = int(input("ENTER THE VALUE: "))
+        csll.createCSLL(ele)
+    elif ans == 2:
+        ele = int(input("ENTER THE VALUE TO BE APPENDED: "))
+        csll.insertbeg(ele)
+    elif ans == 3:
+        ele = int(input("ENTER THE VALUE TO BE APPENDED: "))
+        csll.insertend(ele)
+    elif ans == 4:
+        ele = int(input("ENTER THE VALUE TO BE APPENDED: "))
+        csll.insertm(ele)
+    elif ans == 5:
+        csll.deletebeg()
+    elif ans == 6:
+        csll.deleteend()
+    elif ans == 7:
+        del_value = int(input("ENTER THE VALUE FROM LINKED LIST YOU WANT TO DELETE: "))
+        csll.delMid(del_value)
+    elif ans == 8:        
+        csll.display()        
+    else:
+        startover = False
+
