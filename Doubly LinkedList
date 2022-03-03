@@ -1,0 +1,215 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.nref = None
+        self.pref = None
+        
+class doublyLL:
+    def __init__(self):
+        self.head = None
+        
+    def print_LL(self): 
+        if self.head is None:
+            print("Linked List is Empty!!")
+        else:
+            n = self.head
+            while n is not None:
+                print(n.data, "-->", end = " ")
+                n = n.nref
+            print("\n")
+            
+    def print_LL_reverse(self):
+        print()
+        if self.head is None:
+            print("Linked List is Empty!!")
+        else:
+            n = self.head
+            while n.nref is not None:                
+                n = n.nref     
+            while n is not None:
+                print(n.data, "-->", end=" ")
+                n = n.pref
+            print("\n")
+                
+    def insert_empty(self,data):
+        if self.head is None:
+            new_node = Node(data)
+            self.head = new_node
+        else:
+            print("Linked List is not empty!")
+
+    def add_begin(self,data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+        else:
+            new_node.nref = self.head
+            self.head.pref = new_node
+            self.head = new_node
+
+    def add_end(self,data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+        else:
+            n = self.head
+            while n.nref is not None:
+                n = n.nref
+            n.nref = new_node
+            new_node.pref = n
+        
+    def add_after(self,data,x):
+        if self.head is None:
+            print("Linked List is empty!!")
+        else:
+            n = self.head
+            while n is not None:
+                if x == n.data:
+                    break
+                n = n.nref
+            if n is None:
+                print("Given Node is not present in Linked List")
+            else:
+                new_node = Node(data)
+                new_node.nref = n.nref
+                new_node.pref = n
+                if n.nref is not None:
+                    n.nref.pref = new_node
+                n.nref = new_node
+                
+    def add_before(self,data,x):
+        if self.head is None:
+            print("Linked List is empty!!")
+        else:
+            n = self.head
+            while n is not None:
+                if x == n.data:
+                    break
+                n = n.nref
+            if n is None:
+                print("Given Node is not present in Linked List")
+            else:
+                new_node = Node(data)
+                new_node.nref = n
+                new_node_pref = n.pref
+                if n.pref is not None:
+                    n.pref.nref = new_node
+                else:
+                    self.head = new_node
+                    n.pref = new_node
+                    
+    def delete_begin(self):
+        if self.head is None:
+            print("Linked List is already empty!!")
+            return
+        if self.head.nref is None:
+            self.head = None
+            print("Linked List is empty after deleting the node!!")
+        else:
+            self.head = self.head.nref
+            self.head.pref = None
+    
+    def delete_end(self):
+        if self.head is None:
+            print("Linked List is already empty!!")
+            return
+        if self.head.nref is None:
+            self.head = None
+            print("Linked List is empty after deleting the node!!")
+        else:
+            n = self.head
+            while n.nref is not None:
+                n = n.nref
+            n.pref.nref = None
+                
+    def delete_by_value(self,x):
+        if self.head is None:
+            print("Linked List is already empty!!")
+            return
+        if self.head.nref is None:
+            if x == self.head.data:
+                self.head = None
+            else:
+                print("X is not present in Linked List!!")
+            return
+        if self.head.data == x:
+            self.head = self.head.nref
+            self.head.pref = None
+            return
+        n = self.head
+        while n.nref is not None:
+            if x==n.data:
+                break
+            n = n.nref
+        if n.nref is not None:
+            n.nref.pref = n.pref
+            n.pref.nref = n.nref
+        else:
+            if n.data == x:
+                n.pref.nref = None
+            else:
+                print("X is not present in the Linked List!!")
+            
+print("*****DOUBLY LINKED LIST OPERATION*****")    
+
+dll = doublyLL()
+exit = True
+while exit:
+    print("Select any option from the given options: ")
+    print("1. Insert element in empty Linked List.")
+    print("2. Insert element at the beginning of the Linked List.")
+    print("3. Insert element at the end of the Linked List.")
+    print("4. Insert element after given value in the Linked List.")
+    print("5. Insert element before given value in the Linked List.")
+    print("6. Delete element from the beginning of the Linked List.")
+    print("7. Delete element from the end of the Linked List.")
+    print("8. Delete element be the given value from of the Linked List.")
+    print("9. Print the LinkedList in Forward order")
+    print("10. Print the LinkedList in Reverse order")
+    print("11. Exit")
+    
+    choice = int(input("Enter the operation number you want to perform: "))
+    
+    if choice == 1:
+        data = int(input("Enter any value you want to insert into Linked List: "))
+        dll.insert_empty(data)
+        
+    elif choice == 2:
+        data = int(input("Enter any value you want to insert into Linked List: "))
+        dll.add_begin(data)
+        
+    elif choice == 3:
+        data = int(input("Enter any value you want to insert into Linked List: "))
+        dll.add_end(data)
+        
+    elif choice == 4:
+        x = int(input("Enter any value from linked list after which you want insert data: "))
+        data = int(input("Enter the value which you want to insert: "))
+        dll.add_after(data,x)
+        
+    elif choice == 5:
+        x = int(input("Enter any value from linked list before which you want insert data: "))
+        data = int(input("Enter the value which you want to insert: "))
+        dll.add_before(data,x)
+    
+    elif choice == 6:
+        dll.delete_begin()
+    
+    elif choice == 7:
+        dll.delete_end()
+        
+    elif choice == 8:
+        x = int(input("Enter the value of node which you want to delete: "))
+        dll.delete_end()
+        
+    elif choice == 9:
+        dll.print_LL()
+        
+    elif choice == 10:
+        dll.print_LL_reverse()
+        
+    elif choice == 11:
+        exit = False
+        
+    else:
+        print("Incorrect choice!!")
