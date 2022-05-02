@@ -1,0 +1,18 @@
+import math
+import random
+
+def binary_search(arr, target):
+    arr.sort()
+    left = 0
+    right = len(arr)
+
+    while left <= right:
+        mid = math.floor((left + right) / 2)
+
+        if target > arr[mid]:
+            left = mid + 1
+        elif target < arr[mid]:
+            right = mid - 1
+        else:
+            return arr.index(target)
+print("Element found at index: ",binary_search( [1, 2, 3, 4, 5], 3 ) )
