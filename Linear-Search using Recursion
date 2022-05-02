@@ -1,0 +1,14 @@
+def LinearSearchRecursive(arr,index,searchItem):
+    if index>=len(arr):
+        return -1
+    if arr[index]==searchItem:
+        return index
+    return LinearSearchRecursive(arr,index+1,searchItem)
+
+searchItem=int(input("Please provide input search item: "))
+arr=[30,40,20,50,10]
+result=LinearSearchRecursive(arr,0,searchItem)
+if result<0:
+    print(searchItem," is not found")
+else:
+    print(searchItem," is found at index: ",result)
