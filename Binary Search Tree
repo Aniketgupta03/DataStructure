@@ -1,0 +1,88 @@
+import time
+class Node:
+    def __init__(self,val):
+        self.val = val
+        self.right=None
+        self.left=None
+def insertNode(root,val):
+    if root==None:
+        return Node(val)
+    else:
+        if(root.val==val):
+            return root
+        elif(root.val<val):
+            root.right=insertNode(root.right,val)
+        elif(root.val>val):
+            root.left=insertNode(root.left,val)
+    return root
+def minValueNode(node):
+    current = node
+    while(current.left is not None):
+        current = current.left 
+    return current 
+def deleteNode(root, val): 
+    if root is None:
+        return root
+    if val < root.val:
+        root.left = deleteNode(root.left, val
+    elif(val > root.val):
+        root.right = deleteNode(root.right, val)
+    else: 
+        if root.left is None:
+            temp = root.right
+            root = None
+            return temp 
+        elif root.right is None:
+            temp = root.left
+            root = None
+            return temp
+        temp = minValueNode(root.right)
+        root.val = temp.val
+        root.right = deleteNode(root.right, temp.val)
+    return root
+def search(root,val):    
+    if root is None or root.val == val:
+        return root
+    if root.val < val:
+        return search(root.right,val)
+    return search(root.left,val)
+def display(root):
+    if(root!=None):
+        display(root.left)
+        print(root.val,end=" ")
+        display(root.right)
+if(__name__ == '__main__'):   
+    c="y"
+    r =None
+    while(c=='y'):
+        val=input("Enter a value: ")
+        ch=input("Enter 1 if you want to insert an element in the Binary Search Tree,\n      2 if you want to delete an element from the Binary Search Tree and\n      3 if you want to search an element in the Binary Search Tree.\n")
+        if(ch=="1"):  
+            r=insertNode(r,val)
+        elif(ch=="2"):
+            r=deleteNode(r,val)
+        elif(ch=="3"):
+            s=search(r,val)
+            if(s==None):
+                print("Element not found")
+            else:
+                if(s.right==None and s.left==None):
+                    print("Element at a leaf node")
+                elif(s.right==None or s.left==None):
+                    print("Element found at a node with one children")
+                else:
+                    print("Element found at a node with two children")
+        else:
+            print("Invalid choice\n")
+        print("BST up untill now =>")
+        display(r)
+        while(True):
+          c=input("\nDo you want to continue(y/n)?\n")
+          if(c=="y"):
+              break
+          elif(c=="n"):
+              print("Thank You for visiting\nExiting Now......")
+              time.sleep(1)
+              break
+          else:
+              print("Wrong choice, please try again")
